@@ -2572,8 +2572,8 @@ export default function InterviewPlatform() {
   const [userAnswer, setUserAnswer] = useState<string>('')
   const [qaPairs, setQaPairs] = useState<QAPair[]>([])
   const [stream, setStream] = useState<MediaStream | null>(null)
-  const [micOn, setMicOn] = useState<boolean>(true)
-  const [videoOn, setVideoOn] = useState<boolean>(true)
+  // const [micOn, setMicOn] = useState<boolean>(true)
+  // const [videoOn, setVideoOn] = useState<boolean>(true)
   const [isListening, setIsListening] = useState<boolean>(false)
 
   const videoRef = useRef<HTMLVideoElement>(null)
