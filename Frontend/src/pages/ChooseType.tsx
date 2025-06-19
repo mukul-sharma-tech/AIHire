@@ -1318,7 +1318,6 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Moon, Sun, ChevronRight, Upload, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -2562,8 +2562,8 @@ export default function InterviewPlatform() {
   const [userAnswer, setUserAnswer] = useState<string>('')
   const [qaPairs, setQaPairs] = useState<QAPair[]>([])
   const [stream, setStream] = useState<MediaStream | null>(null)
-  const [micOn, setMicOn] = useState<boolean>(true)
-  const [videoOn, setVideoOn] = useState<boolean>(true)
+  // const [micOn, setMicOn] = useState<boolean>(true)
+  // const [videoOn, setVideoOn] = useState<boolean>(true)
   const [isListening, setIsListening] = useState<boolean>(false)
 
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -2590,35 +2590,35 @@ export default function InterviewPlatform() {
     }
   }, [])
 
-  const toggleMic = (): void => {
-    if (stream) {
-      stream.getAudioTracks().forEach((track) => (track.enabled = !micOn))
-      setMicOn(!micOn)
-    }
-  }
+  // const toggleMic = (): void => {
+  //   if (stream) {
+  //     stream.getAudioTracks().forEach((track) => (track.enabled = !micOn))
+  //     setMicOn(!micOn)
+  //   }
+  // }
 
-  const toggleVideo = async (): Promise<void> => {
-    if (!stream) return
+  // const toggleVideo = async (): Promise<void> => {
+  //   if (!stream) return
 
-    if (videoOn) {
-      stream.getVideoTracks().forEach((track) => track.stop())
-      setVideoOn(false)
-      if (videoRef.current) {
-        videoRef.current.srcObject = null
-      }
-    } else {
-      try {
-        const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: micOn })
-        setStream(newStream)
-        setVideoOn(true)
-        if (videoRef.current) {
-          videoRef.current.srcObject = newStream
-        }
-      } catch (err) {
-        console.error('Failed to reacquire camera:', err)
-      }
-    }
-  }
+  //   if (videoOn) {
+  //     stream.getVideoTracks().forEach((track) => track.stop())
+  //     setVideoOn(false)
+  //     if (videoRef.current) {
+  //       videoRef.current.srcObject = null
+  //     }
+  //   } else {
+  //     try {
+  //       const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: micOn })
+  //       setStream(newStream)
+  //       setVideoOn(true)
+  //       if (videoRef.current) {
+  //         videoRef.current.srcObject = newStream
+  //       }
+  //     } catch (err) {
+  //       console.error('Failed to reacquire camera:', err)
+  //     }
+  //   }
+  // }
 
   const speak = (textToSpeak: string): void => {
     if (utteranceRef.current) {

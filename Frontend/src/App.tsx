@@ -1,9 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ChooseType from './pages/ChooseType'
-import InterviewPlatform from './pages/InterviewPlatform'
-import Result from './pages/Result'
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+// import ChooseType from './pages/ChooseType'
+// import InterviewPlatform from './pages/InterviewPlatform'
+// import Result from './pages/Result'
 
-import { FC } from 'react';
+// const App = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<ChooseType />} />
+//         <Route path="/interview" element={<InterviewPlatform />} />
+//         <Route path="/result" element={<Result />} />
+//         {/* Add more routes as needed */}
+//       </Routes>
+//     </Router>
+//   )
+// }
+// export default App
+
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ChooseType from './pages/ChooseType';
+import InterviewPlatform from './pages/InterviewPlatform';
+import Result from './pages/Result';
+
+import type { FC } from 'react';
 
 const App: FC = () => {
   return (
@@ -18,6 +38,7 @@ const App: FC = () => {
 };
 
 export default App;
+
 
 
 
