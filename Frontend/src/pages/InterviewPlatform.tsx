@@ -2722,7 +2722,7 @@ export default function InterviewPlatform() {
           transition={{ duration: 0.5 }}
         >
           {/* Video Feed */}
-<div className="flex-1 flex flex-col items-center justify-center gap-4 overflow-hidden">
+{/* <div className="flex-1 flex flex-col items-center justify-center gap-4 overflow-hidden">
   <div className="relative w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-600/30 bg-blue-900/20">
     {stream && videoRef.current ? (
       <video
@@ -2740,7 +2740,17 @@ export default function InterviewPlatform() {
           <p className="mt-2 text-blue-300">Camera is disabled</p>
         </div>
       </div>
-    )}
+    )} */}
+
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 overflow-hidden">
+  <div className="relative w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-600/30 bg-blue-900/20">
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      className="w-full aspect-video object-cover"
+    />
+
 
     {/* Mic Indicator */}
     {isListening && (
