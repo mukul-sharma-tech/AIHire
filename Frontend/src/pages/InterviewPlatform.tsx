@@ -2722,41 +2722,35 @@ export default function InterviewPlatform() {
           transition={{ duration: 0.5 }}
         >
           {/* Video Feed */}
-          <div className="flex-1 flex flex-col items-center justify-center gap-4 overflow-hidden">
-            <div className="relative w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-600/30 bg-blue-900/20">
-              {videoOn ? (
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  muted
-                  className="w-full aspect-video object-cover"
-                />
-              ) : (
-                <div className="w-full aspect-video bg-blue-900/50 flex items-center justify-center">
-                  <div className="text-center">
-                    <svg className="w-12 h-12 mx-auto text-blue-500/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    <p className="mt-2 text-blue-300">Camera is disabled</p>
-                  </div>
-                </div>
-              )}
-              
-              {/* Status Indicators */}
-              <div className="absolute top-4 right-4 flex gap-2">
-                <div className={`w-3 h-3 rounded-full ${micOn ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                <div className={`w-3 h-3 rounded-full ${videoOn ? 'bg-green-500' : 'bg-red-500'}`}></div>
-              </div>
-              
-              {/* Mic Indicator */}
-              {isListening && (
-                <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-blue-800/80 px-3 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-blue-100">Listening</span>
-                </div>
-              )}
-            </div>
-          </div>
+<div className="flex-1 flex flex-col items-center justify-center gap-4 overflow-hidden">
+  <div className="relative w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-600/30 bg-blue-900/20">
+    {stream && videoRef.current ? (
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        className="w-full aspect-video object-cover"
+      />
+    ) : (
+      <div className="w-full aspect-video bg-blue-900/50 flex items-center justify-center">
+        <div className="text-center">
+          <svg className="w-12 h-12 mx-auto text-blue-500/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <p className="mt-2 text-blue-300">Camera is disabled</p>
+        </div>
+      </div>
+    )}
+
+    {/* Mic Indicator */}
+    {isListening && (
+      <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-blue-800/80 px-3 py-1 rounded-full">
+        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+        <span className="text-xs text-blue-100">Listening</span>
+      </div>
+    )}
+  </div>
+</div>
 
           {/* Answer Section */}
           <div className="flex-none w-full max-w-xl mx-auto p-5 bg-blue-800/60 rounded-xl backdrop-blur-md border border-blue-700/50 shadow-lg">
