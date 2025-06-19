@@ -28,30 +28,30 @@
 // }
 
 
-import React, { useCallback } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import HumanModel from '../components/HumanModel';
-import InterviewControls from '../components/InterviewControls';
+// import React, { useCallback } from 'react';
+// import { Canvas } from '@react-three/fiber';
+// import { OrbitControls } from '@react-three/drei';
+// import HumanModel from '../components/HumanModel';
+// import InterviewControls from '../components/InterviewControls';
 
-export default function Test3D() {
-  const handleSpeech = useCallback((text) => {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    synth.speak(utterance);
-    // TODO: trigger gestures or lip sync based on text
-  }, []);
+// export default function Test3D() {
+//   const handleSpeech = useCallback((text) => {
+//     const synth = window.speechSynthesis;
+//     const utterance = new SpeechSynthesisUtterance(text);
+//     utterance.lang = 'en-US';
+//     synth.speak(utterance);
+//     // TODO: trigger gestures or lip sync based on text
+//   }, []);
 
-  return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <Canvas camera={{ position: [0, 1.5, 3] }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[2, 2, 5]} intensity={1} />
-        <HumanModel position={[0, -1, 0]} />
-        <OrbitControls enablePan={false} />
-      </Canvas>
-      <InterviewControls onSpeak={handleSpeech} />
-    </div>
-  );
-}
+//   return (
+//     <div style={{ height: '100vh', width: '100%' }}>
+//       <Canvas camera={{ position: [0, 1.5, 3] }}>
+//         <ambientLight intensity={0.5} />
+//         <directionalLight position={[2, 2, 5]} intensity={1} />
+//         <HumanModel position={[0, -1, 0]} />
+//         <OrbitControls enablePan={false} />
+//       </Canvas>
+//       <InterviewControls onSpeak={handleSpeech} />
+//     </div>
+//   );
+// }
