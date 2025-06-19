@@ -2532,8 +2532,8 @@
 // }
 
 
+/// <reference lib="dom" />
 
-//typesafe
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -2551,6 +2551,16 @@ interface QAPair {
   answer: string
 }
 
+// Fallback typings for speech recognition events
+type MySpeechRecognitionEvent = Event & {
+  results: SpeechRecognitionResultList
+  resultIndex: number
+}
+
+type MySpeechRecognitionErrorEvent = Event & {
+  error: string
+}
+
 export default function InterviewPlatform() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -2562,14 +2572,17 @@ export default function InterviewPlatform() {
   const [userAnswer, setUserAnswer] = useState<string>('')
   const [qaPairs, setQaPairs] = useState<QAPair[]>([])
   const [stream, setStream] = useState<MediaStream | null>(null)
-  // const [micOn, setMicOn] = useState<boolean>(true)
-  // const [videoOn, setVideoOn] = useState<boolean>(true)
+  const [micOn, setMicOn] = useState<boolean>(true)
+  const [videoOn, setVideoOn] = useState<boolean>(true)
   const [isListening, setIsListening] = useState<boolean>(false)
 
   const videoRef = useRef<HTMLVideoElement>(null)
   const synthRef = useRef<SpeechSynthesis>(window.speechSynthesis)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+
+  // Cross-browser support for SpeechRecognition
+  const SpeechRecognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition
+  const recognitionRef = useRef<InstanceType<typeof SpeechRecognitionClass> | null>(null)
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -2590,36 +2603,6 @@ export default function InterviewPlatform() {
     }
   }, [])
 
-  // const toggleMic = (): void => {
-  //   if (stream) {
-  //     stream.getAudioTracks().forEach((track) => (track.enabled = !micOn))
-  //     setMicOn(!micOn)
-  //   }
-  // }
-
-  // const toggleVideo = async (): Promise<void> => {
-  //   if (!stream) return
-
-  //   if (videoOn) {
-  //     stream.getVideoTracks().forEach((track) => track.stop())
-  //     setVideoOn(false)
-  //     if (videoRef.current) {
-  //       videoRef.current.srcObject = null
-  //     }
-  //   } else {
-  //     try {
-  //       const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: micOn })
-  //       setStream(newStream)
-  //       setVideoOn(true)
-  //       if (videoRef.current) {
-  //         videoRef.current.srcObject = newStream
-  //       }
-  //     } catch (err) {
-  //       console.error('Failed to reacquire camera:', err)
-  //     }
-  //   }
-  // }
-
   const speak = (textToSpeak: string): void => {
     if (utteranceRef.current) {
       synthRef.current.cancel()
@@ -2632,6 +2615,7 @@ export default function InterviewPlatform() {
       setIsSpeaking(true)
       setCurrentAnimation('Talking')
     }
+
     utterance.onend = () => {
       setIsSpeaking(false)
       setCurrentAnimation('Idle')
@@ -2647,16 +2631,15 @@ export default function InterviewPlatform() {
   }, [questions])
 
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition()
+    if (SpeechRecognitionClass) {
+      const recognition = new SpeechRecognitionClass()
       recognition.lang = 'en-US'
       recognition.continuous = true
       recognition.interimResults = true
 
       recognition.onstart = () => setIsListening(true)
 
-      recognition.onresult = (event: SpeechRecognitionEvent) => {
+      recognition.onresult = (event: MySpeechRecognitionEvent) => {
         let final = ''
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript
@@ -2667,7 +2650,7 @@ export default function InterviewPlatform() {
         setUserAnswer(prev => prev + final)
       }
 
-      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      recognition.onerror = (event: MySpeechRecognitionErrorEvent) => {
         console.error('Speech Recognition error:', event.error)
         setIsListening(false)
       }
@@ -2710,6 +2693,7 @@ export default function InterviewPlatform() {
       })
     }
   }
+
 
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-blue-900 to-blue-700 text-white overflow-hidden">
