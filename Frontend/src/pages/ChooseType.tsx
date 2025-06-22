@@ -71,7 +71,7 @@ Generate 4 concise and realistic interview questions for a ${interviewLevel} ${r
       const formData = new FormData();
       formData.append('pdf', file);
 
-      const response = await fetch('https://aihire-0ar6.onrender.com/extract-pdf', {
+      const response = await fetch('https://aihire-f2ex.onrender.com/extract-pdf', {
         method: 'POST',
         body: formData
       });
